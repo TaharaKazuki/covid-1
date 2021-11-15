@@ -1,7 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 
+import covidReducer from '../features/covid/covidSlice'
+
 export const store = configureStore({
-  reducer: {}
+  reducer: {
+    covid: covidReducer
+  }
 })
 
 export type AppDispatch = typeof store.dispatch
