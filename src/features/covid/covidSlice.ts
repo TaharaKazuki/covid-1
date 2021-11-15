@@ -80,10 +80,23 @@ const initialState: covidState = {
   ]
 }
 
+export const fetchAsyncGet = createAsyncThunk('covid/get', async () => {
+  const { data } = await axios.get<API_DATA>(apiUrl)
+  return data
+})
+
 const covidSlice = createSlice({
   name: 'covid',
   initialState: initialState,
-  reducers: {}
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncGet.fulfilled, (state, action) => {
+      return {
+        ...state,
+        data: action.payload
+      }
+    })
+  }
 })
 
 export const selectData = (state: RootState) => state.covid.data
