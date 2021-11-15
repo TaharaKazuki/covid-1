@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { RootState } from '../../app/store'
 import dataJson from './data.json'
 import dataDailyJson from './dataDaily.json'
 
@@ -85,4 +86,8 @@ const covidSlice = createSlice({
   reducers: {}
 })
 
-export default covidSlice
+export const selectData = (state: RootState) => state.covid.data
+export const selectDailyData = (state: RootState) => state.covid.dailyData
+export const selectCountry = (state: RootState) => state.covid.country
+
+export default covidSlice.reducer
