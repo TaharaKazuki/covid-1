@@ -85,6 +85,14 @@ export const fetchAsyncGet = createAsyncThunk('covid/get', async () => {
   return data
 })
 
+export const fetchAsyncGetDaily = createAsyncThunk(
+  'covid/getDaily',
+  async () => {
+    const { data } = await axios.get<API_DATA_DAILY>(`${apiUrl}/daily`)
+    return data
+  }
+)
+
 const covidSlice = createSlice({
   name: 'covid',
   initialState: initialState,
@@ -94,6 +102,12 @@ const covidSlice = createSlice({
       return {
         ...state,
         data: action.payload
+      }
+    })
+    builder.addCase(fetchAsyncGetDaily.fulfilled, (state, action) => {
+      return {
+        ...state,
+        dailyData: action.payload
       }
     })
   }
